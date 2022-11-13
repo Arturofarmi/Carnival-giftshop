@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to the carnival!</title>
+</head>
+<body>
+    <script>
+let gifts = [
+  {name: "Teddy Bear",
+   price: 10,
+   id: 1},
+  {name: "Big Red Ball",
+   price: 5,
+   id: 2},
+  {name: "Huge Bear",
+   price: 50,
+   id: 3},
+  {name: "Candy",
+   price: 8,
+   id: 4},
+  {name: "Stuffed Tiger",
+   price: 15,
+   id: 5},
+  {name: "Stuffed Dragon",
+   price:30,
+   id: 6},
+  {name: "Skateboard",
+   price:100,
+   id: 7},
+  {name: "Toy Car",
+   price:25,
+   id: 8},
+  {name: "Basketball",
+   price:20,
+   id: 9},
+  {name: "Scary Mask",
+   price:75,
+   id: 10}
+  ];
+
+let tickets = 0;
+const input = require('sync-input');
+
+function greet() {
+  console.log ("WELCOME TO THE CARNIVAL GIFT SHOP!");
+  console.log ("Hello friend! Thank you for visiting the carnival!");
+  console.log("Here's the list of gifts:\n");
+};
+
+function giftList(params) {
+  for (let i = 0; i < gifts.length; i++) {
+    console.log(`${gifts[i].id}- ${gifts[i].name}, Cost: ${gifts[i].price} tickets`);
+  };
+};
+
+function options() {
+  let optionNumber = Number(input(`
+What do you want to do?
+1-Buy a gift 2-Add tickets 3-Check tickets 4-Show gifts 5-Exit the shop`));
+  if (Number.isNaN(optionNumber) || (optionNumber >= 6) || (optionNumber <= 0)) {
+      console.log("Please enter a valid number!");
+      options();
+  }else {
+    switch (optionNumber) {
+      case 1:
+        if (gifts.length >= 1) {
+        case1();
+        options();
+        }else {
+          console.log("Wow! There are no gifts to buy.");
+          options();
+        }
+        break;
+      case 2:
+        case2();
+        options();
+        break;
+      case 3:
+        console.log(`Total tickets: ${tickets}`);
+        options();
+        break;
+      case 4:
+        console.log("Here's the list of gifts:\n");
+        giftList();
+        options();
+        break;
+      case 5:
+        console.log("Have a nice day!");
+        break;
+    }
+  }
+}
+
+function case1() {
+    let numberOfGift = Number(input("Enter the number of the gift you want to get:"));
+    const deleteGift = gifts.findIndex(e => e.id === numberOfGift);
+    if (Number.isNaN(numberOfGift)) {
+      console.log("Please enter a valid number!");
+    }else if (gifts[deleteGift] == null) {
+      console.log("There is no gift with that number!");
+    }else if (gifts[deleteGift].price > tickets) {
+      console.log("You don't have enough tickets to buy this gift.");
+    }else {
+      console.log(`Here you go, one ${gifts[deleteGift].name}!`);
+      tickets -= (gifts[deleteGift].price);
+      gifts.splice(deleteGift, 1);
+      console.log(`Total tickets: ${tickets}`);
+    }
+}
+
+function case2() {
+let ticketCharge = Number(input("Enter the ticket amount:"));
+  if (Number.isNaN(ticketCharge) || ticketCharge < 0 || ticketCharge > 1000) {
+    console.log("Please enter a valid number between 0 and 1000.");
+  } else {
+      tickets += ticketCharge;
+      console.log(`Total tickets: ${tickets}`)}
+}
+
+function case3() {
+  console.log(`Total tickets: ${tickets}`);
+}
+
+greet();
+giftList();
+options();
+
+    </script>
+</body>
+</html>
